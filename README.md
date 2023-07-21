@@ -80,3 +80,7 @@
 ## 12 Logging
 
 -   Thử viết 1 log đơn giản để hiển thị user name sau khi đăng nhập xong
+## 13 Relationship
+- Taọ được mối quan hệ giữa Classroom và Student. Sau đó từ student lấy được các thông tin của classroom mà không cần dùng join
+## 14 Seeder và factory
+- Fake một loạt dữ liệu lớn cho User, Classroom, Student để chuẩn bị cho việc pagination

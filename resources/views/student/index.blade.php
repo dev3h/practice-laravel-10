@@ -35,14 +35,14 @@
                             <tr>
                                 <td>{{ $student->id }}</td>
                                 <td>{{ $student->name }}</td>
-                                <td>{{ $student->classroom_name }}</td>
+                                <td>{{ $student->classroom->name }}</td>
                                 <td>
                                     <div class="flex gap-2">
-                                        <a href="{{ route('classroom.show', $student->id) }}"
+                                        <a href="{{ route('student.show', $student->id) }}"
                                             class='px-3 py-1 bg-blue-300 text-white hover:opacity-80'>{{ __('action.VIEW') }}</a>
-                                        <a href="{{ route('classroom.edit', $student->id) }}"
+                                        <a href="{{ route('student.edit', $student->id) }}"
                                             class="px-3 py-1 bg-yellow-300 text-white hover:opacity-80">{{ __('action.EDIT') }}</a>
-                                        <form action="{{ route('classroom.destroy', $student->id) }}" method='post'>
+                                        <form action="{{ route('student.destroy', $student->id) }}" method='post'>
                                             @method('DELETE')
                                             @csrf
                                             <input type="submit" value="{{ __('action.DELETE') }}"

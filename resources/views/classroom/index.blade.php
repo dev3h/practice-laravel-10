@@ -52,6 +52,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{$classrooms->links()}}
             </div>
             <div class="flex-1">
                 @includeIf('classroom.test', ['name' => Auth::user()->name, 'email' => Auth::user()->email])

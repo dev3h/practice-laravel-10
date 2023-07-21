@@ -18,13 +18,13 @@
         </label>
         <label class="block">
             <span class="block">Classroom</span>
-            <select name="classroom_id">
+            <select name="classroom_id" class="border">
                 @foreach ($classrooms as $classroom)
                     <option value="{{$classroom->id}}">{{$classroom->name}}</option>
                 @endforeach
             </select>
         </label>
-        <input type="submit" value="create" class="border px-3 mt-5">
+        <input type="submit" value="create" class="border px-3 mt-5 cursor-pointer hover:opacity-80">
     </form>
 @endsection
 @endsection

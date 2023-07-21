@@ -25,7 +25,8 @@ class ClassroomController extends Controller
      */
     public function index()
     {
-        $classrooms = Classroom::all();
+        $classrooms = Classroom::paginate(10);
+        
         return view('classroom/index', [
             "classrooms"=> $classrooms,
             "title"=> "<h2>Quản lý lớp học</h2>"

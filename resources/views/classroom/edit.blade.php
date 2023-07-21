@@ -1,4 +1,4 @@
-@extends('default-view.index')
+@extends('layouts.default-layout.index')
 @section('content')
     @extends('components.form.card-form')
 @section('card-content')

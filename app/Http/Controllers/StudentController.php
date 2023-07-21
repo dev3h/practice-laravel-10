@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class StudentController extends Controller
     {
         $students = Student::all();
         return view('student.index', [
-            'student' => $students
+            'students' => $students,
+            'title' => 'Quản lý học sinh'
         ]);
     }
 
@@ -23,7 +25,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        $classrooms = Classroom::all();
+        return view('student.create', [
+            'classrooms' => $classrooms
+        ]);
     }
 
     /**
@@ -31,7 +36,9 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = $request->except('_token');
+        Student::create($student);
+        return redirect(route('student.index'));
     }
 
     /**
@@ -39,7 +46,6 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -47,7 +53,12 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $student = Student::find($id);
+        $classrooms = Classroom::all();
+        return view('student.edit', [
+            'student' => $student,
+            "classrooms" => $classrooms
+        ]);
     }
 
     /**
@@ -55,7 +66,9 @@ class StudentController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $student = Student::find($id);
+        $student->update($request->all());
+        return redirect(route('student.index'));
     }
 
     /**
@@ -63,6 +76,8 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        return redirect(route('student.index'));
     }
 }
