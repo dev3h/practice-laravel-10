@@ -1,66 +1,68 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Những cái đã làm được
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1 Route
 
-## About Laravel
+-   Kết hợp cả việc dùng **resource** và **middleware**
+-   middleware bao gồm change language, check login
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Route User
+- Thử sử dụng Auth để làm chức năng đăng ký, đăng nhập, đăng xuất
+| #   | Method |              Route |                Des |
+| --- | :----: | -----------------: | -----------------: |
+| 1   |  GET   |    **/auth/login** |    open form login |
+| 2   |  GET   | **/auth/register** | open form register |
+| 3   |  POST  |    **/auth/login** |       handle login |
+| 4   |  POST  | **/auth/register** |    handle register |
+| 5   |  GET   |  **/auth/logout/** |      handle logout |
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Hiện tại đang sử dụng Auth nhưng chạy câu lệnh để generate code: php artisan ui:auth nên sẽ không có cái prefix auth. Ngoài ra sẽ có thêm một vài route do auth tự sinh ra như route để verify email cũng như để reset password
+    | # | Method | Route | Des
+    |----------|:-------------:|------:|------:
+    | 1 | GET| **email/verify/{id}/{hash}** |link when click is verify email
+    | 2 | GET| **/password/email** | send mail to reset password
+    | 3 | POST| **password/reset** | set new password
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Route Classroom
 
-## Learning Laravel
+-   CRUD classroom:
+    | # | Method | Route | Des |
+    | --- | :----: | ----------------: | ---------------------: |
+    | 1 | GET | **/classroom** | get all classroom |
+    | 2 | GET | **/classroom/id** | get classroom by id |
+    | 3 | POST | **/classroom** | store new classroom |
+    | 4 | PUT | **/classroom/id** | update classroom by id |
+    | 5 | DELETE | **/classroom/id** | delete classroom by id |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 2 Component
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+-   Đã tạo thử được component, thử tạo 1 hình tròn và truyền các params vào trong component đó
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 3 Upload file
 
-## Laravel Sponsors
+-   Đã thử được upload file ảnh vào trong storage và link từ storage sang public
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 4 Helpers
 
-### Premium Partners
+-   Thử tạo ra 1 hàm helper đơn giản để sử dụng, trong `app/helpers/php`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## 5 Notification
 
-## Contributing
+-   Test thử sau khi đăng ký xong thì sẽ gửi 1 mail với thông báo chào mừng
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 6 Event, Listener
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   Thử tạo 1 cái nút order sau đó khi bấm vào nút đó thì sẽ bắt sự kiện để tiến hành gửi mail. Listener sẽ hứng những cái mà thằng event gửi (chưa hoàn thiện do chưa tạo 1 mail với lênh `php artisan mail`)
+## 7 Hash
+- Test hash một chuỗi và so sánh chuỗi hash với chuỗi người dùng nhập vào
+## 8 Validate, csrf token, middleware
+- Sử dụng csrf token để tránh sql injection trong form method post, put, delete
+- Tạo 1 request validate cho ClassroomController, thử viết validate trong controller mà không tạo request
+- Thử viết middleware trong controller, viết ở hàm constructor cho toàn bộ method
+## 9 Language
+- Thay đổi ngôn ngữ của ứng dụng với en và vi
+## 10 Console
+- Thử tạo ra 1 command cho viết khi chạy artisan thì sẽ thực thi command tạo đó. Command tạo là thay thế email có 1 đuôi bất kì sang đuôi gmail.com
+## 11 Session
+- Thử tạo 1 session, lấy session đó ra và xóa session đó đi
+## 12 Logging
+- Thử viết 1 log đơn giản để hiển thị user name sau khi đăng nhập xong
