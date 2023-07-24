@@ -12,4 +12,10 @@ class Classroom extends Model
     public function student() {
         return $this->hasMany(Student::class);
     }
+    public function getIdAttribute($value) {
+        return "#Lop " . $value;
+    }
+    public function setNameAttribute($value) {
+        $this->attributes['name'] =  "Dev3h " . $value;
+    }
 }

@@ -84,3 +84,10 @@
 - Taọ được mối quan hệ giữa Classroom và Student. Sau đó từ student lấy được các thông tin của classroom mà không cần dùng join
 ## 14 Seeder và factory
 - Fake một loạt dữ liệu lớn cho User, Classroom, Student để chuẩn bị cho việc pagination
+## 15 Pagination
+- Tiến hành phân trang cho dữ liệu, ui sử dụng là pagination của tailwindcss, fix được lỗi chỉ hiện 2 nút prev và next mặc dù không dùng simplePagination
+## 16 Eloquent, Eloquent Collection
+- Sử dụng được các phương thức của eloquent hỗ trợ để làm CRUD, biết cách tạo global scope, local scope. Thử thay đổi tên mới cho table, khóa chính, làm được xóa mềm
+- Sử dụng được những phương thức mà eloquent collection cung cấp
+## 17 Accesors và mutators
+- Sử dụng accesors để format lại cột id của classroom trước khi hiển thị cho người dủng và mutators để format dữ liệu cho name của classroom trước khi lưu vào DB

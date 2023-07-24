@@ -80,3 +80,4 @@ Route::post('/process-order', [TestController::class, 'processOrder'])->name('pr
 Route::post('/store-img', [TestController::class, 'storeImg'])->name('storeImg');
 
 Route::resource('student', StudentController::class);
+Route::get('/student/get-soft-delete', [StudentController::class, 'getSoftDelete'])->name('student.getSoftDelete');

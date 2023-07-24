@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\Scopes\StudentScope;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,15 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::withoutGlobalScope(StudentScope::class)->studentClassroomGreater(40)->paginate(10);
+        return view('student.index', [
+            'students' => $students,
+            'title' => 'Quản lý học sinh'
+        ]);
+    }
+    public function getSoftDelete() {
+        $students = Student::onlyTrashed()->paginate(10);
+    
         return view('student.index', [
             'students' => $students,
             'title' => 'Quản lý học sinh'

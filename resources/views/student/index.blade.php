@@ -20,6 +20,9 @@
                 <a href="{{ route('student.create') }}"
                     class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.ADD') }}
                 </a>
+                <a href="{{ route('student.getSoftDelete') }}"
+                    class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.GET_SOFT_DELETED') }}
+                </a>
                 <table class='w-full'>
                     <!-- head -->
                     <thead>
@@ -54,6 +57,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $students->links() }}
             </div>
             <div class="flex-1">
                 @includeIf('classroom.test', ['name' => Auth::user()->name, 'email' => Auth::user()->email])
