@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Events\CustomerOrder;
+use App\Jobs\sendMailPromotion;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 
 class TestController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         // return URL::full();
         // return route('test', ['post'=> '1']);
         // return URL::signedRoute('test', ['id'=> '1']);
@@ -17,11 +18,11 @@ class TestController extends Controller
         //  $url = action([TestController::class, 'index'], ['id'=> 1]);
         //  return $url;
 
-        
         return 1;
     }
-    public function testSession() {
-        session()->put(['useId'=>1]);
+    public function testSession()
+    {
+        session()->put(['useId' => 1]);
         // session()->push('user.name','hoa');
         // session()->pull('useId');
         // session()->put('count',1);
@@ -31,11 +32,19 @@ class TestController extends Controller
         // session()->forget('useId');
         session()->regenerate();
     }
-    public function processOrder(Request $request) {
+    public function processOrder(Request $request)
+    {
         $user = $request->except('_token');
         event(new CustomerOrder($user));
     }
-    public function storeImg(Request $request) {
+    public function storeImg(Request $request)
+    {
         $photo = $request->file('photo')->store('public/img');
+    }
+    public function sendMailPromotion(Request $request)
+    {
+        dispatch(new sendMailPromotion($request->user()));
+        return 'Đã gửi thành công';
+
     }
 }

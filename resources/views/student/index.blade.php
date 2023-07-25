@@ -60,7 +60,7 @@
                 {{ $students->links() }}
             </div>
             <div class="flex-1">
-                @includeIf('classroom.test', ['name' => Auth::user()->name, 'email' => Auth::user()->email])
+                @includeIf('classroom.test', ['name' => Auth::user()->name ?? '', 'email' => Auth::user()->email ?? ''])
             </div>
         </div>
     </div>

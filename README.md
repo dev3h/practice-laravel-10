@@ -91,3 +91,12 @@
 - Sử dụng được những phương thức mà eloquent collection cung cấp
 ## 17 Accesors và mutators
 - Sử dụng accesors để format lại cột id của classroom trước khi hiển thị cho người dủng và mutators để format dữ liệu cho name của classroom trước khi lưu vào DB
+## 18 socialite
+- Ap dụng login với github
+## 19 Mail
+- Send mail
+## 20 API Resource
+- Create API get student and classroom
+## 21 Serialization
+- Thử chuyển model collection sang array hoặc sang chuỗi json
+

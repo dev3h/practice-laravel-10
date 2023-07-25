@@ -24,17 +24,18 @@ class AuthController extends Controller
     public function checkLogin(AuthRequest $request) {
         
         $login = $request->except('_token', 'remember');
+        
         $remember  = ( !empty( $request->remember ) )? true : false;
-
+        
         // hàm attempt này nó sẽ hash cái password để so sánh với db nên trong db cũng phải lưu password được hash
-       if(Auth::attempt($login)) {
-        $user = User::where(["email" => $request->email])->first();
+        if(Auth::attempt($login)) {
+            $user = User::where(["email" => $request->email])->first();
+           
         if($user) {
             $rememberToken = Str::random(60);
             $user->remember_token = $rememberToken;
             $user->save();
         }
-
         Auth::login($user, $remember);
         return redirect(route('classroom.index'));
        }

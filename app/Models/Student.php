@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Student extends Model
 {
     use HasFactory;
-      use SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
         'classroom_id'
     ];
+    protected $appends = ['age'];
     protected $dates = ['deleted_at'];
 
     public function classroom() {
@@ -30,5 +31,8 @@ class Student extends Model
 
     public function scopeStudentClassroomGreater($query, $number) {
         return $query->where('classroom_id', '>', $number);
+    }
+    public function getAgeAttribute() {
+        return $this->attributes['age'] = 18;
     }
 }

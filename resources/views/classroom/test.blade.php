@@ -7,10 +7,10 @@
     Xin chao
 </span>
 <div class="flex items-center gap-3">
-    <span @style(['font-size: 25px' => $active])>{{ $name }}</span>
+    <span @style(['font-size: 25px' => $active])>{{ $name ?? '' }}</span>
     <a class='underline cursor-pointer hover:text-blue-400' href='{{ route('auth.logout') }}'>Logout</a>
 </div>
-<div @style(['font-size: 25px' => $active])>email: {{ $email }}</div>
+<div @style(['font-size: 25px' => $active])>email: {{ $email ?? '' }}</div>
 <input type="checkbox" name="checkbox" @checked(old('active', $active))>
 <x-circle :size=4 class='shadow-lg w-4 h-4 bg-blue-200 rounded-full'></x-circle>
 <hr>
@@ -142,6 +142,34 @@
 <h2 class='font-bold'>Queries builder</h2>
 @php
     // use Illuminate\Support\Facades\DB;
-    $student = DB::table('classrooms')->where('id',1)->value('created_at');
+    $student = DB::table('classrooms')
+        ->where('id', 1)
+        ->value('created_at');
     // dd($student);
 @endphp
+<hr>
+<h2 class='font-bold'>Serialization</h2>
+@php
+    use App\Models\User;
+    //  $students = Student::all()->toArray();
+    $students = Student::all()->toJson(JSON_PRETTY_PRINT);
+    // $students = (string) Student::all();
+    // $users = User::all();
+    // $users->makeVisible(['password']);
+    // $users->toJson(JSON_PRETTY_PRINT)
+    // dd($students);
+@endphp
+<hr>
+<h2 class="font-bold">HTTP Client</h2>
+@php
+    use Illuminate\Support\Facades\Http;
+    $response = Http::get('http://example.com');
+    $response = Http::post('http://example.com', [
+        'name' => 'hoa',
+    ]);
+    // dd($response->ok());
+    // dd($response->failed());
+@endphp
+<hr>
+<h2 class="font-bold">Mail</h2>
+<a href="{{ route('sendPromotion') }}" class='border px-3 bg-orange-400 hover:opacity-80'>Gửi mail khuyến mãi</a>

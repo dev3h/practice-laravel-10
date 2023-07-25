@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\ClassroomResource;
 use App\View\Components\Shapes\Circle;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -22,5 +23,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::component('circle', Circle::class);
+        // ClassroomResource::withoutWrapping();
+
     }
 }
