@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TestController;
@@ -48,22 +49,32 @@ Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
 //     Route::put('/update/{id}', [ClassroomController::class, 'update'])->name('update');
 //     Route::delete('/delete/{id}', [ClassroomController::class, 'destroy'])->name('destroy');
 // });
-Route::group(['middleware' => ['localization', 'auth'], 'prefix' => '/classroom', 'as' => 'classroom.'], function () {
-    Route::get('', [ClassroomController::class, 'index'])->name('index');
-    Route::get('/create', [ClassroomController::class, 'create'])->name('create');
-    Route::post('/store', [ClassroomController::class, 'store'])->name('store');
-    Route::get('/show/{id}', [ClassroomController::class, 'show'])->name('show');
-    Route::get('/edit/{id}', [ClassroomController::class, 'edit'])->name('edit');
-    Route::put('/update/{id}', [ClassroomController::class, 'update'])->name('update');
-    Route::delete('/delete/{id}', [ClassroomController::class, 'destroy'])->name('destroy');
+
+// Route::group(['middleware' => ['localization', 'auth'], 'prefix' => '/classroom', 'as' => 'classroom.', 'controller' => ClassroomController::class], function () {
+//     Route::get('', 'index')->name('index');
+//     Route::get('/create', 'create')->name('create');
+//     Route::post('/store', 'store')->name('store');
+//     Route::get('/show/{classroom}', 'show')->name('show');
+//     Route::get('/edit/{id}', 'edit')->name('edit');
+//     Route::put('/update/{id}', 'update')->name('update');
+//     Route::delete('/delete/{id}', 'destroy')->name('destroy');
+// });
+
+Route::middleware(['localization', 'auth'])->controller(ClassroomController::class)->prefix('/classroom')->name('classroom.')->group(function () {
+    Route::get('', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/show/{classroom}', 'show')->name('show');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
+    Route::delete('/delete/{id}', 'destroy')->name('destroy');
+
 });
 
 // Route::get('/test', function() {
 //     return response('hello world',200)->header('Content-Type', 'text/plain');
 // });
-Route::fallback(function () {
-    return view('404-page.404_page');
-});
+
 Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::get('/test-session', [TestController::class, 'testSession'])->name('test-session')->block($lockSeconds = 1, $waitSeconds = 1);
 // Route::resource('classroom', ClassroomController::class);
@@ -101,3 +112,11 @@ Route::get('/students/json', function () {
 //     return new StudentCollection(Student::all());
 // });
 Route::get('/send-promotion', [TestController::class, 'sendMailPromotion'])->name('sendPromotion');
+
+// Route::permanentRedirect('/classroom100', '/auth/login');
+Route::apiResource('photos', PhotoController::class);
+
+
+Route::fallback(function () {
+    return view('404-page.404_page');
+});

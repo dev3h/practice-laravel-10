@@ -17,9 +17,15 @@
         <div class='flex gap-2'>
             <div class='flex-1'>
                 {!! $title !!}
-                <a href="{{ route('student.create') }}"
-                    class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.ADD') }}
-                </a>
+                <div class="flex">
+                    <a href="{{ route('student.create') }}"
+                        class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.ADD') }}
+                    </a>
+                    <form>
+                        <input type="text" name='search' class="border" value="{{ $search }}">
+                        <button type="submit" class="border px-2 bg-red-500 hover:opacity-80">search</button>
+                    </form>
+                </div>
                 <a href="{{ route('student.getSoftDelete') }}"
                     class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.GET_SOFT_DELETED') }}
                 </a>
@@ -27,9 +33,28 @@
                     <!-- head -->
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Classroom</th>
+                            <th># <form>
+                                    <input type="hidden" name="sortColumn" value='id'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form>
+                            </th>
+                            <th>Name <form>
+                                    <input type="hidden" name="sortColumn" value='name'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form>
+                            </th>
+                            <th>Classroom <form>
+                                    <input type="hidden" name="sortColumn" value='classroom_name'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form>
+                            </th>
+                            <th>Người tạo</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -38,7 +63,8 @@
                             <tr>
                                 <td>{{ $student->id }}</td>
                                 <td>{{ $student->name }}</td>
-                                <td>{{ $student->classroom->name }}</td>
+                                <td>{{ $student->classroom_name }}</td>
+                                <td>{{ $student->user->name }}</td>
                                 <td>
                                     <div class="flex gap-2">
                                         <a href="{{ route('student.show', $student->id) }}"
@@ -59,8 +85,11 @@
                 </table>
                 {{ $students->links() }}
             </div>
-            <div class="flex-1">
-                @includeIf('classroom.test', ['name' => Auth::user()->name ?? '', 'email' => Auth::user()->email ?? ''])
+            <div class="flex-1 border-l-2 border-cyan-500 p-6">
+                @includeIf('classroom.test', [
+                    'name' => Auth::user()->name ?? '',
+                    'email' => Auth::user()->email ?? '',
+                ])
             </div>
         </div>
     </div>

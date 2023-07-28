@@ -17,16 +17,36 @@
         <div class='flex gap-2'>
             <div class='flex-1'>
                 {!! $title !!}
-                <a href="{{ route('classroom.create') }}"
-                    class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.ADD') }}
-                </a>
+                <div class="flex">
+                    <a href="{{ route('classroom.create') }}"
+                        class="text-white border px-3 rounded-md bg-red-500 inline-block mb-2 hover:opacity-80">{{ __('action.ADD') }}
+                    </a>
+                    <form>
+                        <input type="text" name='search' class="border" value="{{ $search }}">
+                        <button type="submit" class="border px-2 bg-red-500 hover:opacity-80">search</button>
+                    </form>
+                </div>
                 <table class='w-full'>
                     <!-- head -->
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Action</th>
+                            <th>#
+                                <form>
+                                    <input type="hidden" name="sortColumn" value='id'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form>
+                            </th>
+                            <th>Name
+                                <form>
+                                    <input type="hidden" name="sortColumn" value='name'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form>
+                            </th>
+                            <th>Action </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,10 +72,13 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{$classrooms->links()}}
+                {{ $classrooms->links() }}
             </div>
-            <div class="flex-1">
-                @includeIf('classroom.test', ['name' => Auth::user()->name ?? '', 'email' => Auth::user()->email ?? ''])
+            <div class="flex-1 border-l-2 border-cyan-500 p-6">
+                @includeIf('classroom.test', [
+                    'name' => Auth::user()->name ?? '',
+                    'email' => Auth::user()->email ?? '',
+                ])
             </div>
         </div>
     </div>

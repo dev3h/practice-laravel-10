@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Events\CustomerOrder;
 use App\Jobs\sendMailPromotion;
 use App\Models\User;
+use Illuminate\Bus\Batch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Bus;
+use Throwable;
 
 class TestController extends Controller
 {
@@ -39,12 +42,26 @@ class TestController extends Controller
     }
     public function storeImg(Request $request)
     {
-        $photo = $request->file('photo')->store('public/img');
+        // $photo = $request->file('photo')->store('public/img');
+        $path = $request->photo->store('images');
+        dd($path);
     }
     public function sendMailPromotion(Request $request)
     {
-        dispatch(new sendMailPromotion($request->user()));
-        return 'Đã gửi thành công';
+        // đã sử dụng được queue nhưng mà nó ko có send mail được, còn nếu bỏ queue đi thì chạy được
+        // sendMailPromotion::dispatch(($request->user()))->onQueue('high');
+        // sendMailPromotion::dispatch(($request->user()));
+        sendMailPromotion::dispatch();
+        // $batch = Bus::batch([]);
+        // foreach ($users as $user) {
+        //     $job = new sendMailPromotion($user);
+        //     $batch->add($job);
+        // }
+        // $batch->then(function (Batch $batch) {
+        //     return 'Đã gửi thành công';
 
+        // })->catch(function (Batch $batch, Throwable $e) {
+        // })->dispatch();
+        return 'Đã gửi thành công';
     }
 }

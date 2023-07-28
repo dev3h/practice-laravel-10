@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UpperCase;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClassroomRequest extends FormRequest
@@ -9,6 +10,8 @@ class ClassroomRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
+    protected $stopOnFirstFailure = true;
+    // protected $redirect = '/classroom';
     public function authorize(): bool
     {
         return true;
@@ -21,13 +24,17 @@ class ClassroomRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'name'=> ['required']
+            'name' => ['required', 'min:2', new UpperCase],
+            // 'test' => 'min:2',
         ];
+
     }
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
-            'name.required' => 'Bắt buộc nhập tên lớp học'
+            'name.required' => 'Bắt buộc nhập tên lớp học',
         ];
     }
     // protected function prepareForValidation():void {
@@ -35,7 +42,7 @@ class ClassroomRequest extends FormRequest
     //         'name' => 'Hi'
     //     ]);
     // }
-    
+
     // protected function passedValidation(): void {
     //     $this->replace(['name'=> 'F1']);
     // }

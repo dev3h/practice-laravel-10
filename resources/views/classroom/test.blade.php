@@ -1,3 +1,4 @@
+<h2 class="font-bold text-3xl">Chỗ để test</h2>
 @php
     $active = true;
 @endphp

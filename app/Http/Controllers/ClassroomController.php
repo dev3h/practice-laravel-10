@@ -5,31 +5,46 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClassroomRequest;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
+
+// use Illuminate\Support\Stringable;
 
 class ClassroomController extends Controller
 {
-    public function handleLog(string $id) {
+    public function handleLog(string $id)
+    {
         // Log::emergency('show the class info with {id}', ['id'=> $id]);
         // Log::alert('show the class info with {id}', ['id'=> $id]);
         // Log::critical('show the class info with {id}', ['id'=> $id]);
         // Log::error('show the class info with {id}', ['id'=> $id]);
         // Log::warning('show the class info with {id}', ['id'=> $id]);
         // Log::notice('show the class info with {id}', ['id'=> $id]);
-        Log::info('show the class info with {id}', ['id'=> $id]);
+        Log::info('show the class info with {id}', ['id' => $id]);
         // Log::debug('show the class info with {id}', ['id'=> $id]);
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $classrooms = Classroom::paginate(10);
-        
+        $search = $request->search;
+        $sortColumn = $request->colName ?? 'id';
+        $sortType = $request->sortType ?? 'asc';
+
+        // dd(Route::currentRouteAction());
+        $classrooms = Classroom::where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('id', $search)
+            ->orderBy($sortColumn, $sortType)
+            ->paginate(10);
+        // $sortType = 'asc' ? $sortType = 'desc' : $sortType = 'asc';
+        $sortType = $sortType == 'asc' ? 'desc' : 'asc';
+
         return view('classroom/index', [
-            "classrooms"=> $classrooms,
-            "title"=> "<h2>Quản lý lớp học</h2>"
+            "classrooms" => $classrooms,
+            "title" => "<h2>Quản lý lớp học</h2>",
+            "search" => $search,
+            "sortType" => $sortType,
         ]);
     }
 
@@ -40,7 +55,7 @@ class ClassroomController extends Controller
     {
 
         return view('classroom/create');
-       
+
     }
 
     /**
@@ -51,20 +66,28 @@ class ClassroomController extends Controller
         // $request->validate([
         //     'name'=> 'required|max:255'
         // ]);
+        // $request->merge(['admin'=>true]);
+        // dd($request->all());
+        $request->old('name');
+        // dd();
+        $request->flash();
+        $validated = $request->safe();
+        // dd($validated);
         $classroom = Classroom::create($request->except('_token'));
-       if($classroom) {
-        return redirect(route('classroom.index'));
-       };
+        if ($classroom) {
+            return redirect(route('classroom.index'));
+        };
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Classroom $classroom)
     {
-        $this->handleLog($id);
-       
-        return "Xem log ở storage/logs";
+        // $this->handleLog($id);
+
+        // return "Xem log ở storage/logs";
+        return $classroom;
     }
 
     /**
@@ -74,7 +97,7 @@ class ClassroomController extends Controller
     {
         $classroom = Classroom::find($id);
         return view('classroom.edit', [
-            "classroom"=>$classroom
+            "classroom" => $classroom,
         ]);
     }
 
@@ -85,7 +108,7 @@ class ClassroomController extends Controller
     {
         $classroom = Classroom::find($id);
         $classroom->update($request->all());
-        
+
         return redirect(route('classroom.index'));
     }
 

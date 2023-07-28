@@ -14,13 +14,17 @@ class Student extends Model
 
     protected $fillable = [
         'name',
-        'classroom_id'
+        'classroom_id',
+        'user_id'
     ];
     protected $appends = ['age'];
     protected $dates = ['deleted_at'];
 
     public function classroom() {
         return $this->belongsTo(Classroom::class);
+    }
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
 

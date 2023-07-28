@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class WelcomeEmailNotification extends Notification
+class WelcomeEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -18,7 +18,7 @@ class WelcomeEmailNotification extends Notification
     private $user;
     public function __construct(User $user)
     {
-         $this->user = $user;
+        $this->user = $user;
     }
 
     /**
@@ -36,11 +36,20 @@ class WelcomeEmailNotification extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
+        // return (new MailMessage)->view(
+        //     'emails.welcome', ['user_name' => $this->user->name]
+        // );
+
         return (new MailMessage)
-         ->greeting('Hello, '.$this->user->name)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->error()
+            ->greeting('Hello, ' . $this->user->name)
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
+        // ->attach('/public/storage/img/eKGvgDsr8DD0NUMjqvGHZ8ouvGnCgc6WQJedgGgf.pdf', [
+        //     'as' => 'test.pdf',
+        //     'mime' => 'application/pdf',
+        // ]);
     }
 
     /**

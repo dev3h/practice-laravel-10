@@ -3,24 +3,31 @@
 namespace App\Jobs;
 
 use App\Mail\PromotionMail;
+use App\Models\User;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class sendMailPromotion implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      */
     private $user;
-    public function __construct($user)
+    // public function __construct($user)
+    // {
+    //     $this->user = $user;
+    // }
+    public function __construct()
     {
-        $this->user = $user;
+
     }
 
     /**
@@ -28,11 +35,21 @@ class sendMailPromotion implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user)
+        $users = User::all()->toArray();
+        // Log::info($users[0]['email']);
+        Mail::to($users[0]['email'])
 // ->bcc($recipientEmails)
 // ->queue(new PromotionMail($request->user()));
-            ->queue(new PromotionMail($this->user->toArray()));
-      
+    ->send(new PromotionMail($users[0]));
+
+//         foreach ($users as $user) {
+//             // Log::info($user);
+//             Mail::to($user)
+// // ->bcc($recipientEmails)
+// // ->queue(new PromotionMail($request->user()));
+//                 ->send(new PromotionMail($user));
+
+//         }
 
     }
 }

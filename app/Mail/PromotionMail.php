@@ -18,8 +18,10 @@ class PromotionMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(protected $user)
+    private $user;
+    public function __construct($user)
     {
+        $this->user = $user;
     }
 
     /**
@@ -55,7 +57,7 @@ class PromotionMail extends Mailable
     public function attachments(): array
     {
         return [
-            // Attachment::fromStorage('img/eKGvgDsr8DD0NUMjqvGHZ8ouvGnCgc6WQJedgGgf.pdf')
+            // Attachment::fromPath('public/storage/img/eKGvgDsr8DD0NUMjqvGHZ8ouvGnCgc6WQJedgGgf.pdf')
             //     ->as('test.pdf'),
         ];
     }
