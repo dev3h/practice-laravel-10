@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\CustomerOrder;
 use App\Jobs\sendMailPromotion;
-use App\Models\User;
-use Illuminate\Bus\Batch;
+use App\Jobs\TestJob;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Bus;
-use Throwable;
 
 class TestController extends Controller
 {
@@ -51,7 +48,7 @@ class TestController extends Controller
         // đã sử dụng được queue nhưng mà nó ko có send mail được, còn nếu bỏ queue đi thì chạy được
         // sendMailPromotion::dispatch(($request->user()))->onQueue('high');
         // sendMailPromotion::dispatch(($request->user()));
-        sendMailPromotion::dispatch();
+        // sendMailPromotion::dispatch();
         // $batch = Bus::batch([]);
         // foreach ($users as $user) {
         //     $job = new sendMailPromotion($user);
@@ -62,6 +59,17 @@ class TestController extends Controller
 
         // })->catch(function (Batch $batch, Throwable $e) {
         // })->dispatch();
+        // $users = User::all();
+        // foreach ($users as $user) {
+        //     Mail::to($user)->queue(new PromotionMail($user));
+        // }
+        // sendMailPromotion::dispatch(($request->user()))->onConnection('redis');
+        phpinfo();
+
+        // $a = 1;
+        // $b = $a + 1;
+        TestJob::dispatch();
+
         return 'Đã gửi thành công';
     }
 }

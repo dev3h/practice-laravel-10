@@ -184,6 +184,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Redis' => Illuminate\Support\Facades\Redis::class
     ])->toArray(),
 
 ];
