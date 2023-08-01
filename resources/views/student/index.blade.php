@@ -54,7 +54,18 @@
                                     <button type="submit">sort</button>
                                 </form>
                             </th>
-                            <th>Người tạo</th>
+                            <th>Người tạo <form>
+                                    <input type="hidden" name="sortColumn" value='created_by_email'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form></th>
+                            <th>Người sửa <form>
+                                    <input type="hidden" name="sortColumn" value='updated_by_email'>
+                                    <input type="hidden" name="sortType" id='sort' value='{{ $sortType }}'>
+                                    <input type="hidden" name='search' value='{{ $search }}'>
+                                    <button type="submit">sort</button>
+                                </form></th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -64,7 +75,8 @@
                                 <td>{{ $student->id }}</td>
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->classroom_name }}</td>
-                                <td>{{ $student->user->name }}</td>
+                                <td>{{ $student->created_by_email }}</td>
+                                <td>{{ $student->updated_by_email }}</td>
                                 <td>
                                     <div class="flex gap-2">
                                         <a href="{{ route('student.show', $student->id) }}"
@@ -84,12 +96,6 @@
                     </tbody>
                 </table>
                 {{ $students->links() }}
-            </div>
-            <div class="flex-1 border-l-2 border-cyan-500 p-6">
-                @includeIf('classroom.test', [
-                    'name' => Auth::user()->name ?? '',
-                    'email' => Auth::user()->email ?? '',
-                ])
             </div>
         </div>
     </div>

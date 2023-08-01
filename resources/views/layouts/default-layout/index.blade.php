@@ -11,6 +11,12 @@
 
 <body>
     @stack('lang')
+    <div class="flex justify-end border-l-2 border-cyan-500">
+        @includeIf('layouts.default-layout.header', [
+            'name' => Auth::user()->name ?? '',
+            'email' => Auth::user()->email ?? '',
+        ])
+    </div>
     <div class="flex gap-3">
         <div class='w-52 bg-blue-400'>
             <div>

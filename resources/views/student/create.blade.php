@@ -14,15 +14,29 @@
         @csrf
         <label class="block">
             <span class="block">Name</span>
-            <input type="text" name="name" class="border px-3" placeholder="enter student name">
+            <input type="text" name="name" class="border px-3" placeholder="enter student name"
+                value="{{ old('name') }}">
+            @error('name')
+                <p class="text-red-500">{{ $message }}</p>
+            @enderror
+        </label>
+        <label class="block">
+            <span class="block">file</span>
+            <input type="file" name="photo" class="border px-3" placeholder="enter student name">
+            @error('photo')
+                <p class="text-red-500">{{ $message }}</p>
+            @enderror
         </label>
         <label class="block">
             <span class="block">Classroom</span>
             <select name="classroom_id" class="border">
                 @foreach ($classrooms as $classroom)
-                    <option value="{{$classroom->id}}">{{$classroom->name}}</option>
+                    <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
                 @endforeach
             </select>
+            @error('classroom_id')
+                <p class="text-red-500">{{ $message }}</p>
+            @enderror
         </label>
         <input type="submit" value="create" class="border px-3 mt-5 cursor-pointer hover:opacity-80">
     </form>

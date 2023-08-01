@@ -1,28 +1,21 @@
 <h2 class="font-bold text-3xl">Chỗ để test</h2>
-@php
-    $active = true;
-@endphp
-<span @class([
-    'font-bold' => $active,
-])>
-    Xin chao
-</span>
-<div class="flex items-center gap-3">
-    <span @style(['font-size: 25px' => $active])>{{ $name ?? '' }}</span>
-    <a class='underline cursor-pointer hover:text-blue-400' href='{{ route('auth.logout') }}'>Logout</a>
-</div>
-<div @style(['font-size: 25px' => $active])>email: {{ $email ?? '' }}</div>
-<input type="checkbox" name="checkbox" @checked(old('active', $active))>
-<x-circle :size=4 class='shadow-lg w-4 h-4 bg-blue-200 rounded-full'></x-circle>
-<hr>
+
 @php
     $hashText = Hash::make('hello');
     $text = Hash::check('hello', $hashText);
 @endphp
 <span>{{ $hashText }}</span>
 <span> compare hash: {{ $text }}</span>
-
 <hr>
+
+<div class="my-5">
+    <form method="post" action="{{route('insertOrUpdateManyClassrooms')}}">
+        @csrf
+        <input type="submit" class="border px-3 bg-orange-500" value="Insert nhiều classroom">
+    </form>
+</div>
+<hr>
+
 <h2>Collection</h2>
 @php
     $collection = collect([1, 2, 3]);
@@ -33,6 +26,7 @@
 @endphp
 <span>{{ $collection }}</span>
 <hr>
+
 <form action="{{ route('processOrder') }}" method='post' class="shadow-md p-3">
     @csrf
     <div>
@@ -46,10 +40,12 @@
     <input type="submit" value='send order' class="border px-3 bg-orange-400 cursor-pointer hover:opacity-80">
 </form>
 <hr>
+
 @php
     Storage::disk('local')->put('text/example.txt', 'Contents');
 @endphp
 <hr>
+
 <form action="{{ route('storeImg') }}" method='post' enctype="multipart/form-data" class="shadow-md p-4">
     @csrf
     <div>
@@ -58,6 +54,7 @@
     <input type="submit" value="Lưu ảnh" class="border px-3 bg-orange-500 cursor-pointer mt-2 hover:opacity-80">
 </form>
 <hr>
+
 {{-- @php
     use App\Models\Student;
     $student = new Student();
@@ -68,6 +65,7 @@
 <span class='font-bold'>my custom sum helper{{ sumHelper(1, 2) }}</span>
 
 <hr>
+
 @php
     use Illuminate\Support\Facades\DB;
     $users = DB::select('select * from users where name like ?', ['%es%']);
@@ -88,6 +86,7 @@
     DB::beginTransaction();
 @endphp
 <hr>
+
 <h2 class='font-bold'>Khóa học</h2>
 
 @php
@@ -114,6 +113,7 @@
 </ul>
 {{-- <span>{{$course->name}}</span> --}}
 <hr>
+
 <h2 class='font-bold'>Soft delete</h2>
 <h3 class='font-bold'>hiển thị soft delete của student</h3>
 @php
@@ -126,6 +126,7 @@
     @endforeach
 </ul>
 <hr>
+
 <h2 class='font-bold'>Eloquence collection</h2>
 @php
     $studentSofts->append('isSoft', true);
@@ -140,6 +141,7 @@
     $studentSofts->only([1]);
 @endphp
 <hr>
+
 <h2 class='font-bold'>Queries builder</h2>
 @php
     // use Illuminate\Support\Facades\DB;
@@ -149,6 +151,7 @@
     // dd($student);
 @endphp
 <hr>
+
 <h2 class='font-bold'>Serialization</h2>
 @php
     use App\Models\User;
@@ -161,6 +164,7 @@
     // dd($students);
 @endphp
 <hr>
+
 <h2 class="font-bold">HTTP Client</h2>
 @php
     use Illuminate\Support\Facades\Http;
@@ -172,5 +176,6 @@
     // dd($response->failed());
 @endphp
 <hr>
+
 <h2 class="font-bold">Mail</h2>
 <a href="{{ route('sendPromotion') }}" class='border px-3 bg-orange-400 hover:opacity-80'>Gửi mail khuyến mãi</a>

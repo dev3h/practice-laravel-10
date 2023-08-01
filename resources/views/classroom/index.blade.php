@@ -74,12 +74,6 @@
                 </table>
                 {{ $classrooms->links() }}
             </div>
-            <div class="flex-1 border-l-2 border-cyan-500 p-6">
-                @includeIf('classroom.test', [
-                    'name' => Auth::user()->name ?? '',
-                    'email' => Auth::user()->email ?? '',
-                ])
-            </div>
         </div>
     </div>
     @push('handle-lang')

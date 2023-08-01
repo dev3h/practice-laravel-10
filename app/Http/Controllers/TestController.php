@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\CustomerOrder;
 use App\Jobs\sendMailPromotion;
 use App\Jobs\TestJob;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -18,7 +19,15 @@ class TestController extends Controller
         //  $url = action([TestController::class, 'index'], ['id'=> 1]);
         //  return $url;
 
-        return 1;
+        // Collection
+        $collection = collect([
+            [1,2],
+            [3,4]
+        ]);
+        $collapse = $collection->collapse();
+        dd($collapse->all());
+
+        return view('test.index');
     }
     public function testSession()
     {
@@ -71,5 +80,25 @@ class TestController extends Controller
         TestJob::dispatch();
 
         return 'Đã gửi thành công';
+    }
+    public function chunkData()
+    {
+        Classroom::chunkById(50, function ($classrooms) {
+            dd($classrooms);
+        });
+        // dd(Classroom::cursor());
+
+        // $classroom = Classroom::firstOrCreate([
+        //     'name' => 'M1'
+        // ]);
+        // dd($classroom);
+    }
+    public function insertOrUpdateManyClassrooms()
+    {
+        Classroom::upsert([
+            ['id' => '1', 'name' => 'DDS'],
+            ['id' => '203', 'name' => 'Z5'],
+        ], ['id'], ['name']);
+        return redirect(route('classroom.index'));
     }
 }

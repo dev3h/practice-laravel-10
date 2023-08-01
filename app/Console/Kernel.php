@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\ConvertEmails::class,
-        Commands\TestCommand::class
+        Commands\TestCommand::class,
+        Commands\CreateFilterModelCommand::class
     ];
     protected function schedule(Schedule $schedule): void
     {
