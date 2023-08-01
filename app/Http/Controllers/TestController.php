@@ -6,7 +6,9 @@ use App\Events\CustomerOrder;
 use App\Jobs\sendMailPromotion;
 use App\Jobs\TestJob;
 use App\Models\Classroom;
+use App\Notifications\WelcomeEmailNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class TestController extends Controller
 {
@@ -21,11 +23,10 @@ class TestController extends Controller
 
         // Collection
         $collection = collect([
-            [1,2],
-            [3,4]
+            [1, 2],
+            [3, 4],
         ]);
         $collapse = $collection->collapse();
-        dd($collapse->all());
 
         return view('test.index');
     }
@@ -73,6 +74,7 @@ class TestController extends Controller
         //     Mail::to($user)->queue(new PromotionMail($user));
         // }
         // sendMailPromotion::dispatch(($request->user()))->onConnection('redis');
+
         phpinfo();
 
         // $a = 1;
@@ -100,5 +102,9 @@ class TestController extends Controller
             ['id' => '203', 'name' => 'Z5'],
         ], ['id'], ['name']);
         return redirect(route('classroom.index'));
+    }
+    public function sendNotification(Request $request)
+    {
+        Notification::send($request->user(), new WelcomeEmailNotification($request->user()));
     }
 }

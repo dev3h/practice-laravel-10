@@ -179,3 +179,11 @@
 
 <h2 class="font-bold">Mail</h2>
 <a href="{{ route('sendPromotion') }}" class='border px-3 bg-orange-400 hover:opacity-80'>Gửi mail khuyến mãi</a>
+<hr>
+<a href="{{route('sendNotification')}}">Gửi thông báo</a>
+<h3>Thông báo</h3>
+@php
+    foreach (Auth::user()->notifications as $notification) {
+    echo $notification->type;
+}
+@endphp

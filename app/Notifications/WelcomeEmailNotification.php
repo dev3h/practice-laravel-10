@@ -60,7 +60,7 @@ class WelcomeEmailNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'email' => $this->user->email,
         ];
     }
 }

@@ -76,6 +76,8 @@ Route::get('/chunk-data', [TestController::class, 'chunkD\ata']);
 
 Route::apiResource('photos', PhotoController::class);
 
+Route::get('/send-noti', [TestController::class, 'sendNotification'])->name('sendNotification');
+
 // TEST
 Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::get('/test-session', [TestController::class, 'testSession'])->name('test-session')->block($lockSeconds = 1, $waitSeconds = 1);
