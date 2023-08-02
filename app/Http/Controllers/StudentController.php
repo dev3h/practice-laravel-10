@@ -7,6 +7,7 @@ use App\Http\Requests\StudentRequest;
 use App\ModelFilters\StudentFilter;
 use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -49,6 +50,8 @@ class StudentController extends Controller
     {
         // $request = request();
         // dd($request->user());
+        User::find(2)->delete();
+
         $classrooms = Classroom::all();
         return view('student.create', [
             'classrooms' => $classrooms,

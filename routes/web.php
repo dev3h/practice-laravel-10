@@ -82,6 +82,10 @@ Route::get('/send-noti', [TestController::class, 'sendNotification'])->name('sen
 Route::get('/test', [TestController::class, 'index'])->name('test');
 Route::get('/test-session', [TestController::class, 'testSession'])->name('test-session')->block($lockSeconds = 1, $waitSeconds = 1);
 
+// NOTIFICATION
+Route::get('/read-noti/{id}', [TestController::class, 'readNotification'])->name('readNotification');
+Route::get('/delete-noti/{id}', [TestController::class, 'deleteNotification'])->name('deleteNotification');
+
 // FALLBACK
 Route::fallback(function () {
     return view('404-page.404_page');

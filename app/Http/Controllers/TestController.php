@@ -107,4 +107,15 @@ class TestController extends Controller
     {
         Notification::send($request->user(), new WelcomeEmailNotification($request->user()));
     }
+
+    public function readNotification(Request $request, string $id)
+    {
+        $request->user()->notifications()->where('id', $id)->first()->markAsRead();
+        return redirect(route('classroom.index'));
+    }
+    public function deleteNotification(Request $request, string $id)
+    {
+        $request->user()->notifications()->where('id', $id)->first()->delete();
+        return redirect(route('classroom.index'));
+    }
 }

@@ -1,12 +1,16 @@
-<?php 
+<?php
 namespace App\ModelFilters;
+
 use App\Models\Student;
 
-class StudentFilter extends Student {
-    public function getAllStudent() {
+class StudentFilter extends Student
+{
+    public function getAllStudent()
+    {
         return $this->all();
     }
-    public function listStudent($search, $sortType, $sortColumn) {
+    public function listStudent($search, $sortType, $sortColumn)
+    {
         return $this->join('classrooms', 'classrooms.id', '=', 'students.classroom_id')
             ->leftJoin('users as created_users', 'students.created_by', '=', 'created_users.id')
             ->leftJoin('users as updated_users', 'students.updated_by', '=', 'updated_users.id')
@@ -19,6 +23,7 @@ class StudentFilter extends Student {
                     ->orWhere('updated_users.email', 'LIKE', '%' . $search . '%');
             })
             ->orderBy($sortColumn, $sortType)
-            ->where('classrooms.deleted_at', null);
+        // ->where('classrooms.deleted_at', null)
+        ;
     }
 }

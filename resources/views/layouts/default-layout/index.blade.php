@@ -11,7 +11,7 @@
 
 <body>
     @stack('lang')
-    <div class="flex justify-end border-l-2 border-cyan-500">
+    <div class="flex justify-end">
         @includeIf('layouts.default-layout.header', [
             'name' => Auth::user()->name ?? '',
             'email' => Auth::user()->email ?? '',

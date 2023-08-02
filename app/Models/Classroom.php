@@ -11,7 +11,7 @@ class Classroom extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['name'];
-    public function student()
+    public function students()
     {
         return $this->hasMany(Student::class);
     }

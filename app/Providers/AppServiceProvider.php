@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Resources\ClassroomResource;
 use App\View\Components\Shapes\Circle;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
