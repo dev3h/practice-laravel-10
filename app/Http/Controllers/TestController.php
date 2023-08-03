@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\CustomerOrder;
+use App\Events\NotificationUser;
 use App\Jobs\sendMailPromotion;
 use App\Jobs\TestJob;
 use App\Models\Classroom;
@@ -117,5 +118,13 @@ class TestController extends Controller
     {
         $request->user()->notifications()->where('id', $id)->first()->delete();
         return redirect(route('classroom.index'));
+    }
+    public function testPusher(Request $request)
+    {
+        event(new NotificationUser($request->user()));
+        return response()->json([
+    'status' => 1,
+]);
+
     }
 }

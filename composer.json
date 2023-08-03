@@ -14,7 +14,8 @@
         "laravel/socialite": "^5.8",
         "laravel/tinker": "^2.8",
         "laravel/vonage-notification-channel": "^3.2",
-        "predis/predis": "^2.2"
+        "predis/predis": "^2.2",
+        "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

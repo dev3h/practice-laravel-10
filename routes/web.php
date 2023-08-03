@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PusherController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TestController;
@@ -86,6 +87,17 @@ Route::get('/test-session', [TestController::class, 'testSession'])->name('test-
 Route::get('/read-noti/{id}', [TestController::class, 'readNotification'])->name('readNotification');
 Route::get('/delete-noti/{id}', [TestController::class, 'deleteNotification'])->name('deleteNotification');
 
+// PUSHER
+Route::get('/chat', [PusherController::class, 'index'])->name('chat');
+Route::post('/chat/broadcast', [PusherController::class, 'broadcast'])->name('broadcast');
+Route::post('/chat/receive', [PusherController::class, 'receive'])->name('receive');
+
+
+Route::get('/test-pusher', [TestController::class, 'testPusher'])->name('testPusher');  
+
+Route::get('/', function () {
+    return view('welcome');
+});
 // FALLBACK
 Route::fallback(function () {
     return view('404-page.404_page');

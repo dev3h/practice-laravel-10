@@ -19,11 +19,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->call(function() {
-            Classroom::create([
-                'name' => 'day là lop thu n'
-            ]);
-        })->everyFifteenSeconds();
+        // $schedule->call(function() {
+        //     Classroom::create([
+        //         'name' => 'day là lop thu n'
+        //     ]);
+        // })->everyFifteenSeconds();
     }
 
     /**
