@@ -72,7 +72,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{ $classrooms->links() }}
+                {{ $classrooms->onEachSide(2)->links() }}
             </div>
         </div>
     </div>

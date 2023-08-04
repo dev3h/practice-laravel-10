@@ -63,10 +63,10 @@ Route::get('/student/get-soft-delete', [StudentController::class, 'getSoftDelete
 Route::get('login/{social}', [SocialAuthController::class, 'redirectToProvider'])->name('login.redirectToProvider');
 Route::get('login/{social}/callback', [SocialAuthController::class, 'handleProviderCallback'])->name('login.handleProviderCallback');
 
+// API RESOURCE
 Route::get('/classroom/json', function () {
     return ClassroomResource::collection(Classroom::paginate(10));
 });
-
 Route::get('/students/json', function () {
     return StudentResource::collection(Student::all()->keyBy->id);
 });

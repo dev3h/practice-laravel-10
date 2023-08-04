@@ -36,7 +36,10 @@ class ClassroomController extends Controller
         $classrooms = Classroom::where('name', 'LIKE', '%' . $search . '%')
             ->orWhere('id', $search)
             ->orderBy($sortColumn, $sortType)
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString()
+            ;
+
         // $sortType = 'asc' ? $sortType = 'desc' : $sortType = 'asc';
         $sortType = $sortType == 'asc' ? 'desc' : 'asc';
 

@@ -123,8 +123,8 @@ class TestController extends Controller
     {
         event(new NotificationUser($request->user()));
         return response()->json([
-    'status' => 1,
-]);
+            'status' => 1,
+        ]);
 
     }
 }
