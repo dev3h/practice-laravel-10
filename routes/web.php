@@ -25,22 +25,28 @@ Route::group(['prefix' => '/auth', 'as' => 'auth.'], function () {
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 //VERIFY EMAIL
-Route::middleware(['auth'])->controller(AuthController::class)->name('verification.')->group( function () {
-
+Route::middleware(['auth'])->controller(AuthController::class)->name('verification.')->group(function () {
     Route::get('/email/verify', 'show')->name('notice');
     Route::get('/email/verify/{id}/{hash}', 'verify')->name('verify')->middleware(['signed']);
     Route::post('/email/resend', 'resend')->name('resend')->middleware('throttle:6,1');
 });
+// FORGOT PASSWORD
+Route::middleware(['guest'])->name('password.')->group(function () {
+    Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name('request');
+    Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('email');
+    Route::get('/reset-password/', [AuthController::class, 'resetPassword'])->name('reset');
+    Route::post('/reset-password/', [AuthController::class, 'updatePassword'])->name('update');
+});
 
 //CLASSROOM
-Route::middleware(['localization', 'auth'])->controller(ClassroomController::class)->prefix('/classroom')->name('classroom.')->group(function () {
-    Route::get('', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
-    Route::get('/show/{classroom}', 'show')->name('show');
-    Route::get('/edit/{id}', 'edit')->name('edit');
-    Route::put('/update/{id}', 'update')->name('update');
-    Route::delete('/delete/{id}', 'destroy')->name('destroy');
+Route::middleware(['localization', 'auth', 'auth.session'])->prefix('/classroom')->name('classroom.')->group(function () {
+    Route::get('', [ClassroomController::class, 'index'])->name('index');
+    Route::get('/create', [ClassroomController::class, 'create'])->name('create');
+    Route::post('/store', [ClassroomController::class, 'store'])->name('store');
+    Route::get('/show/{classroom}', [ClassroomController::class, 'show'])->name('show');
+    Route::get('/edit/{id}', [ClassroomController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [ClassroomController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [ClassroomController::class, 'destroy'])->name('destroy');
 
 });
 Route::post('/insert-update-many-classrooms', [TestController::class, 'insertOrUpdateManyClassrooms'])->name('insertOrUpdateManyClassrooms');
@@ -92,12 +98,16 @@ Route::get('/chat', [PusherController::class, 'index'])->name('chat');
 Route::post('/chat/broadcast', [PusherController::class, 'broadcast'])->name('broadcast');
 Route::post('/chat/receive', [PusherController::class, 'receive'])->name('receive');
 
-
-Route::get('/test-pusher', [TestController::class, 'testPusher'])->name('testPusher');  
+Route::get('/test-pusher', [TestController::class, 'testPusher'])->name('testPusher');
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/response', function () {
+    return response('Hello World', 200)
+        ->header('Content-Type', 'text/plain');
+});
+
 // FALLBACK
 Route::fallback(function () {
     return view('404-page.404_page');

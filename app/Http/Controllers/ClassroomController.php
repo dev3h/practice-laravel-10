@@ -38,7 +38,7 @@ class ClassroomController extends Controller
             ->orderBy($sortColumn, $sortType)
             ->paginate(10)
             ->withQueryString()
-            ;
+        ;
 
         // $sortType = 'asc' ? $sortType = 'desc' : $sortType = 'asc';
         $sortType = $sortType == 'asc' ? 'desc' : 'asc';

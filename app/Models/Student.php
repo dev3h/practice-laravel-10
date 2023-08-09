@@ -14,8 +14,10 @@ class Student extends Model
     protected $table = 'students';
     protected $fillable = [
         'name',
+        'photo',
         'classroom_id',
-        'user_id'
+        'created_by',
+        'updated_by'
     ];
     protected $appends = ['age'];
     protected $dates = ['deleted_at'];
@@ -28,14 +30,14 @@ class Student extends Model
     }
 
 
-     protected static function booted(): void
-    {
-        static::addGlobalScope(new StudentScope);
-    }
+    //  protected static function booted(): void
+    // {
+    //     static::addGlobalScope(new StudentScope);
+    // }
 
-    public function scopeStudentClassroomGreater($query, $number) {
-        return $query->where('classroom_id', '>', $number);
-    }
+    // public function scopeStudentClassroomGreater($query, $number) {
+    //     return $query->where('classroom_id', '>', $number);
+    // }
     public function getAgeAttribute() {
         return $this->attributes['age'] = 18;
     }

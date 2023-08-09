@@ -22,8 +22,10 @@ class StudentFactory extends Factory
         $userIds = User::pluck('id')->toArray();
         return [
             'name' => fake()->name(),
+            'photo' => fake()->imageUrl(),
             'classroom_id' => fake()->randomElement($classroomIds),
-            'user_id' => fake()->randomElement($userIds)
+            'created_by' => fake()->randomElement($userIds),
+            'updated_by' => fake()->randomElement($userIds),
         ];
     }
 }

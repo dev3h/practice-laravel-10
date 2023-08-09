@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class ClassroomFactory extends Factory
      */
     public function definition(): array
     {
+        $userIds = User::pluck('id')->toArray();
+
         return [
             'name' => fake()->name(),
+            'created_by' => fake()->randomElement($userIds),
+            'updated_by' => fake()->randomElement($userIds),
         ];
     }
 }

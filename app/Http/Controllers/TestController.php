@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Notification;
 
 class TestController extends Controller
 {
-    public function index()
+    public function test()
     {
         // return URL::full();
         // return route('test', ['post'=> '1']);
@@ -23,12 +23,23 @@ class TestController extends Controller
         //  return $url;
 
         // Collection
-        $collection = collect([
-            [1, 2],
-            [3, 4],
-        ]);
-        $collapse = $collection->collapse();
+        // dd(Storage::url('NjRbBj4Myevfft7Xhxsp1YMCS3oG4Dz9VmK0Pg5L.jpg'));
+        // $collection = collect([
+        //     [1, 2],
+        //     [3, 4],
+        // ]);
+        // $collapse = $collection->collapse();
 
+        // $classroom = Classroom::find(2);
+        // dd(url("/classroom/{$classroom->id}"));
+
+        // dd(URL::signedRoute('test', ['id' => 1]));
+        dd(action([TestController::class, 'index'], ['id' => 1]));
+
+    }
+    public function index()
+    {
+        $this->test();
         return view('test.index');
     }
     public function testSession()

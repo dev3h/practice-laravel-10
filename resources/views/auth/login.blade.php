@@ -25,25 +25,30 @@
     <div class='flex justify-center items-center min-h-screen'>
         <div class='max-w-2xl flex-1 shadow-md p-6 '>
             <h2 class="uppercase mb-3 text-center">Form đăng nhập</h2>
-            <form action="{{ route('auth.checklogin') }}" method='post' class="flex flex-col">
+            <form  method='post' class="flex flex-col">
                 @csrf
                 <div>
                     <label for="">Email</label><br>
-                    <input type="email" name='email' class="border w-full"><br>
+                    <input type="email" name='email' class="border w-full" value="{{$_COOKIE['email'] ?? ''}}"><br>
                 </div>
                 <div>
                     <label for="">Password</label><br>
-                    <input type="password" name='password' class="border w-full"><br>
+                    <input type="password" name='password' class="border w-full" value="{{$_COOKIE['password'] ?? ''}}"><br>
                 </div>
                 <input type="submit" value="Login"
                     class="border px-3 mt-5 cursor-pointer bg-orange-600 hover:opacity-80">
-                    <div>
-                        <input type="checkbox" name="remember"><label for="">Remember</label>
-                    </div>
+                <div>
+                    <input type="checkbox" @if (isset($_COOKIE['email']))
+                        checked
+                    @endif name="remember"><label for="">Remember</label>
+                </div>
             </form>
-            <div>
+            <div class="flex gap-3">
                 <a href="{{ route('auth.register') }}" class='underline cursor-pointer hover:text-blue-500'>Register</a>
-                <a href="{{ route('login.redirectToProvider', 'github') }}" class='underline cursor-pointer hover:text-blue-500'>Login github</a>
+                <a href="{{ route('password.request') }}" class='underline cursor-pointer hover:text-blue-500'>Forgot
+                    password?</a>
+                <a href="{{ route('login.redirectToProvider', 'github') }}"
+                    class='underline cursor-pointer hover:text-blue-500'>Login github</a>
             </div>
         </div>
     </div>
